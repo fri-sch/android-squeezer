@@ -1335,19 +1335,27 @@ public class SqueezeService extends Service implements ServiceCallbackList.Servi
 
         @Override
         public boolean nextTrack() {
-            if (!isConnected() || !isPlaying()) {
+            if (!isConnected()) {
                 return false;
             }
+            boolean ip = isPlaying();
             sendActivePlayerCommand("button jump_fwd");
+            if(!ip) {
+                sendActivePlayerCommand("stop");
+            }
             return true;
         }
 
         @Override
         public boolean previousTrack() {
-            if (!isConnected() || !isPlaying()) {
+            if (!isConnected()) {
                 return false;
             }
+            boolean ip = isPlaying();
             sendActivePlayerCommand("button jump_rew");
+            if(!ip) {
+                sendActivePlayerCommand("stop");
+            }
             return true;
         }
 
